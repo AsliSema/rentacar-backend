@@ -24,6 +24,12 @@ public class TransmissionController {
         return transmissionService.add(createTransmissionRequest);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetTransmissionResponse get(@PathVariable int id){
+        return transmissionService.getById(id);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateTransmissionResponse update(@Valid @RequestBody UpdateTransmissionRequest request, @PathVariable int id){
