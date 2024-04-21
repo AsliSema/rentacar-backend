@@ -2,8 +2,10 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.FuelService;
 import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
+import com.tobeto.rentacar.business.dtos.requests.UpdateFuelRequest;
 import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
+import com.tobeto.rentacar.business.dtos.responses.UpdateFuelResponse;
 import com.tobeto.rentacar.business.rules.FuelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.dataAccess.abstracts.FuelRepository;
@@ -33,6 +35,21 @@ public class FuelManager implements FuelService {
         Fuel createdFuel = this.fuelRepository.save(fuel);
         CreatedFuelResponse createdFuelResponse = this.modelMapperService.forResponse().map(createdFuel, CreatedFuelResponse.class);
         return createdFuelResponse;
+    }
+
+    @Override
+    public UpdateFuelResponse update(UpdateFuelRequest request, int id) {
+        Fuel fuel = fuelRepository.findById(id).orElseThrow();
+        Fuel updatedFuel = modelMapperService.forRequest().map(request, Fuel.class);
+
+        fuel.setId(id);
+        fuel.setUpdatedDate(LocalDateTime.now());
+        fuel.setName(updatedFuel.getName() != null ? updatedFuel.getName() : fuel.getName());
+
+        fuelRepository.save(fuel);
+        UpdateFuelResponse response = modelMapperService.forResponse().map(fuel, UpdateFuelResponse.class);
+
+        return response;
     }
 
     @Override
