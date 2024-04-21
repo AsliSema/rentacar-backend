@@ -2,8 +2,10 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.BrandService;
 import com.tobeto.rentacar.business.dtos.requests.CreateBrandRequest;
+import com.tobeto.rentacar.business.dtos.requests.UpdateBrandRequest;
 import com.tobeto.rentacar.business.dtos.responses.CreatedBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllBrandResponse;
+import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
 import com.tobeto.rentacar.business.rules.BrandBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.dataAccess.abstracts.BrandRepository;
@@ -35,6 +37,21 @@ public class BrandManager implements BrandService {
         Brand createdBrand = this.brandRepository.save(brand);
         CreatedBrandResponse createdBrandResponse = this.modelMapperService.forResponse().map(createdBrand, CreatedBrandResponse.class);
         return createdBrandResponse;
+    }
+
+    @Override
+    public UpdateBrandResponse update(UpdateBrandRequest request, int id) {
+        Brand brand = brandRepository.findById(id).orElseThrow();
+        Brand updatedBrand = modelMapperService.forRequest().map(request, Brand.class);
+
+        brand.setId(id);
+        brand.setUpdatedDate(LocalDateTime.now());
+        brand.setName(updatedBrand.getName() != null ? updatedBrand.getName() : brand.getName());
+
+        brandRepository.save(brand);
+        UpdateBrandResponse response = modelMapperService.forResponse().map(brand, UpdateBrandResponse.class);
+
+        return response;
     }
 
     @Override
