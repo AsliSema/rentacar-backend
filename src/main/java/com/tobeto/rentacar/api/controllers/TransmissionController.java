@@ -3,10 +3,8 @@ package com.tobeto.rentacar.api.controllers;
 import com.tobeto.rentacar.business.abstracts.TransmissionService;
 import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateTransmissionRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.CreatedTransmissionResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllTransmissionResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateTransmissionRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +23,13 @@ public class TransmissionController {
     public CreatedTransmissionResponse add(@Valid @RequestBody CreateTransmissionRequest createTransmissionRequest){
         return transmissionService.add(createTransmissionRequest);
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UpdateTransmissionResponse update(@Valid @RequestBody UpdateTransmissionRequest request, @PathVariable int id){
+        return transmissionService.update(request, id);
+    }
+
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

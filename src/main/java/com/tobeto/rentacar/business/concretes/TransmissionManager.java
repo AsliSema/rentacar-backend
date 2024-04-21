@@ -2,13 +2,12 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.TransmissionService;
 import com.tobeto.rentacar.business.dtos.requests.CreateTransmissionRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.CreatedTransmissionResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllTransmissionResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateTransmissionRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.TransmissionBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.dataAccess.abstracts.TransmissionRepository;
+import com.tobeto.rentacar.entities.concretes.Brand;
 import com.tobeto.rentacar.entities.concretes.Fuel;
 import com.tobeto.rentacar.entities.concretes.Transmission;
 import lombok.AllArgsConstructor;
@@ -37,6 +36,22 @@ public class TransmissionManager implements TransmissionService {
         CreatedTransmissionResponse createdTransmissionResponse = this.modelMapperService.forResponse().map(createdTransmission, CreatedTransmissionResponse.class);
         return createdTransmissionResponse;
     }
+
+    @Override
+    public UpdateTransmissionResponse update(UpdateTransmissionRequest request, int id) {
+        Transmission transmission = transmissionRepository.findById(id).orElseThrow();
+        Transmission updatedTransmission = modelMapperService.forRequest().map(request, Transmission.class);
+
+        transmission.setId(id);
+        transmission.setUpdatedDate(LocalDateTime.now());
+        transmission.setName(updatedTransmission.getName() != null ? updatedTransmission.getName() : transmission.getName());
+
+        transmissionRepository.save(transmission);
+        UpdateTransmissionResponse response = modelMapperService.forResponse().map(transmission, UpdateTransmissionResponse.class);
+
+        return response;
+    }
+
 
     @Override
     public List<GetAllTransmissionResponse> getAll() {
