@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateBrandRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateBrandRequest;
 import com.tobeto.rentacar.business.dtos.responses.CreatedBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllBrandResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
 import com.tobeto.rentacar.business.rules.BrandBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
@@ -37,6 +38,14 @@ public class BrandManager implements BrandService {
         Brand createdBrand = this.brandRepository.save(brand);
         CreatedBrandResponse createdBrandResponse = this.modelMapperService.forResponse().map(createdBrand, CreatedBrandResponse.class);
         return createdBrandResponse;
+    }
+
+    @Override
+    public GetBrandResponse get(int id) {
+        Brand brand = brandRepository.findById(id).orElseThrow();
+        GetBrandResponse response = modelMapperService.forResponse().map(brand, GetBrandResponse.class);
+
+        return response;
     }
 
     @Override

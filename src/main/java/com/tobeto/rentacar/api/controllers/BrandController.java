@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateBrandRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateBrandRequest;
 import com.tobeto.rentacar.business.dtos.responses.CreatedBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllBrandResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,12 @@ public class BrandController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedBrandResponse add(@Valid @RequestBody CreateBrandRequest createBrandRequest){
         return brandService.add(createBrandRequest);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetBrandResponse getBrand(@PathVariable int id){
+        return brandService.get(id);
     }
 
     @GetMapping
