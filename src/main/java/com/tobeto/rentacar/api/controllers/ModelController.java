@@ -3,10 +3,8 @@ package com.tobeto.rentacar.api.controllers;
 import com.tobeto.rentacar.business.abstracts.ModelService;
 import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateModelRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.CreatedModelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllModelResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,5 +28,11 @@ public class ModelController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllModelResponse> getAll(){
         return modelService.getAll();
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UpdateModelResponse update(@Valid @RequestBody UpdateModelRequest request, @PathVariable int id){
+        return modelService.update(request, id);
     }
 }
