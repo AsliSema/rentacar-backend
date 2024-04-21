@@ -3,10 +3,8 @@ package com.tobeto.rentacar.api.controllers;
 import com.tobeto.rentacar.business.abstracts.CarService;
 import com.tobeto.rentacar.business.dtos.requests.CreateCarRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedCarResponse;
-import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllCarResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateCarRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +24,11 @@ public class CarController {
         return carService.add(request);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UpdateCarResponse update(@Valid @RequestBody UpdateCarRequest request, @PathVariable int id){
+        return carService.update(request, id);
+    }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllCarResponse> getAll(){
