@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateFuelRequest;
 import com.tobeto.rentacar.business.dtos.responses.CreatedFuelResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllFuelResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetFuelResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateFuelResponse;
 import com.tobeto.rentacar.business.rules.FuelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
@@ -48,6 +49,14 @@ public class FuelManager implements FuelService {
 
         fuelRepository.save(fuel);
         UpdateFuelResponse response = modelMapperService.forResponse().map(fuel, UpdateFuelResponse.class);
+
+        return response;
+    }
+
+    @Override
+    public GetFuelResponse getById(int id) {
+        Fuel fuel = fuelRepository.findById(id).orElseThrow();
+        GetFuelResponse response = modelMapperService.forResponse().map(fuel, GetFuelResponse.class);
 
         return response;
     }

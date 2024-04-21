@@ -24,6 +24,12 @@ public class FuelController {
         return fuelService.add(createFuelRequest);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetFuelResponse get(@PathVariable int id){
+        return fuelService.getById(id);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateFuelResponse update(@Valid @RequestBody UpdateFuelRequest request, @PathVariable int id){
