@@ -49,6 +49,14 @@ public class ModelManager implements ModelService {
     }
 
     @Override
+    public GetModelResponse getById(int id) {
+        Model model = modelRepository.findById(id).orElseThrow();
+        GetModelResponse response = modelMapperService.forResponse().map(model, GetModelResponse.class);
+
+        return response;
+    }
+
+    @Override
     public UpdateModelResponse update(UpdateModelRequest request, int id) {
         Model model = modelRepository.findById(id).orElseThrow();
         Model updatedModel = modelMapperService.forRequest().map(request, Model.class);

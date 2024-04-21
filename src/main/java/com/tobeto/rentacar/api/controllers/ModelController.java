@@ -24,6 +24,12 @@ public class ModelController {
         return modelService.add(createModelRequest);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetModelResponse get(@PathVariable int id){
+        return modelService.getById(id);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllModelResponse> getAll(){
