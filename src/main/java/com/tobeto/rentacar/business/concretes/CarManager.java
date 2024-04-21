@@ -39,6 +39,14 @@ public class CarManager implements CarService {
     }
 
     @Override
+    public GetCarResponse get(int id) {
+        Car car = carRepository.findById(id).orElseThrow();
+        GetCarResponse response = modelMapperService.forResponse().map(car, GetCarResponse.class);
+
+        return response;
+    }
+
+    @Override
     public UpdateCarResponse update(UpdateCarRequest request, int id) {
         Car car = carRepository.findById(id).orElseThrow();
         Car updatedCar = modelMapperService.forRequest().map(request, Car.class);

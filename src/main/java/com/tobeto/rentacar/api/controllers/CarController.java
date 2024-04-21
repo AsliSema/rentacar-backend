@@ -24,6 +24,12 @@ public class CarController {
         return carService.add(request);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetCarResponse getCar(@PathVariable int id){
+        return carService.get(id);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateCarResponse update(@Valid @RequestBody UpdateCarRequest request, @PathVariable int id){
