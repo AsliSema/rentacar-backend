@@ -6,6 +6,7 @@ import com.tobeto.rentacar.business.dtos.requests.UpdateTransmissionRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.TransmissionBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.TransmissionRepository;
 import com.tobeto.rentacar.entities.concretes.Brand;
 import com.tobeto.rentacar.entities.concretes.Fuel;
@@ -66,5 +67,11 @@ public class TransmissionManager implements TransmissionService {
         List<Transmission> transmissions = transmissionRepository.findAll();
         List<GetAllTransmissionResponse> response = transmissions.stream().map(transmission -> modelMapperService.forResponse().map(transmission, GetAllTransmissionResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        transmissionRepository.deleteById(id);
+        return new Result(true, "Transmission Deleted!");
     }
 }

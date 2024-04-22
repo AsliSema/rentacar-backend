@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateTransmissionRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateTransmissionRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,12 @@ public class TransmissionController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllTransmissionResponse> getAll(){
         return transmissionService.getAll();
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return transmissionService.deleteById(id);
     }
 }

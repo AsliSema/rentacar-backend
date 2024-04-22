@@ -7,6 +7,7 @@ import com.tobeto.rentacar.business.dtos.responses.CreatedTransmissionResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllTransmissionResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetTransmissionResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateTransmissionResponse;
+import com.tobeto.rentacar.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface TransmissionService {
 
     UpdateTransmissionResponse update(UpdateTransmissionRequest request, int id);
     List<GetAllTransmissionResponse> getAll();
+
+    Result deleteById(int id);
 }
