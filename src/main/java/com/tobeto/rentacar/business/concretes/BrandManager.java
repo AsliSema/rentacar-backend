@@ -9,6 +9,7 @@ import com.tobeto.rentacar.business.dtos.responses.GetBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
 import com.tobeto.rentacar.business.rules.BrandBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.BrandRepository;
 import com.tobeto.rentacar.entities.concretes.Brand;
 import lombok.AllArgsConstructor;
@@ -68,5 +69,11 @@ public class BrandManager implements BrandService {
         List<Brand>  brands = brandRepository.findAll();
         List<GetAllBrandResponse> response = brands.stream().map(brand -> modelMapperService.forResponse().map(brand, GetAllBrandResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        brandRepository.deleteById(id);
+        return new Result(true, "Brand deleted!");
     }
 }

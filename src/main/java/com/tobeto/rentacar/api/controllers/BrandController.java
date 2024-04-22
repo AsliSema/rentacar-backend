@@ -7,9 +7,11 @@ import com.tobeto.rentacar.business.dtos.responses.CreatedBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,5 +45,11 @@ public class BrandController {
     @ResponseStatus(HttpStatus.OK)
     public UpdateBrandResponse update(@Valid @RequestBody UpdateBrandRequest request, @PathVariable int id){
         return brandService.update(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return brandService.deleteById(id);
     }
 }

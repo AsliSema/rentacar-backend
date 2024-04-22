@@ -6,6 +6,7 @@ import com.tobeto.rentacar.business.dtos.requests.UpdateCarRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.CarBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.CarRepository;
 import com.tobeto.rentacar.entities.concretes.Brand;
 import com.tobeto.rentacar.entities.concretes.Car;
@@ -71,5 +72,11 @@ public class CarManager implements CarService {
         List<Car> cars = carRepository.findAll();
         List<GetAllCarResponse> response = cars.stream().map(car -> modelMapperService.forResponse().map(car, GetAllCarResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        carRepository.deleteById(id);
+        return new Result(true, "Car deleted!");
     }
 }
