@@ -25,6 +25,12 @@ public class User extends BaseEntity {
     @Column(name="lastName")
     private String lastName;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name="password")
+    private String password;
+
     @Column(name = "companyName")
     private String companyName;
 

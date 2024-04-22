@@ -14,6 +14,7 @@ public class CreatedUserResponse {
     private int id;
     private String firstName;
     private String lastName;
+    private String email;
     private String companyName;
     private LocalDateTime createdDate;
 
