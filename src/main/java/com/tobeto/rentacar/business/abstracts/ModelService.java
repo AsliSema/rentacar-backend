@@ -6,6 +6,7 @@ import com.tobeto.rentacar.business.dtos.responses.CreatedModelResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetAllModelResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetModelResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateModelResponse;
+import com.tobeto.rentacar.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface ModelService {
     UpdateModelResponse update(UpdateModelRequest request, int id);
 
     List<GetAllModelResponse> getAll();
+
+    Result deleteById(int id);
+
 }

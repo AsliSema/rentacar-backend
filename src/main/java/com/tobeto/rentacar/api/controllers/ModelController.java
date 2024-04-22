@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateModelRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,12 @@ public class ModelController {
     @ResponseStatus(HttpStatus.OK)
     public UpdateModelResponse update(@Valid @RequestBody UpdateModelRequest request, @PathVariable int id){
         return modelService.update(request, id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return modelService.deleteById(id);
     }
 }

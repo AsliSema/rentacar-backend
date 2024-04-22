@@ -7,6 +7,7 @@ import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.ModelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.BrandRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.FuelRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
@@ -88,5 +89,11 @@ public class ModelManager implements ModelService {
         List<Model> models = modelRepository.findAll();
         List<GetAllModelResponse> response = models.stream().map(model -> modelMapperService.forResponse().map(model, GetAllModelResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        modelRepository.deleteById(id);
+        return new Result(true, "Model Deleted!");
     }
 }
