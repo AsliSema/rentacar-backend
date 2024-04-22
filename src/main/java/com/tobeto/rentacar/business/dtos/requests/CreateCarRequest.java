@@ -29,4 +29,8 @@ public class CreateCarRequest {
     @Positive
     private int modelId;
 
+    @NotNull
+    @Positive
+    private int userId;
+
 }

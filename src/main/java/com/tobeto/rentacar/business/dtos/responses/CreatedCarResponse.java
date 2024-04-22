@@ -15,4 +15,5 @@ public class CreatedCarResponse {
     private int state;
     private double dailyPrice;
     private int modelId;
+    private int userId;
 }

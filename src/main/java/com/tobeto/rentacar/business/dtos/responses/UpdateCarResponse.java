@@ -13,4 +13,5 @@ public class UpdateCarResponse {
     private String plate;
     private int state;
     private double dailyPrice;
+    private int userId;
 }

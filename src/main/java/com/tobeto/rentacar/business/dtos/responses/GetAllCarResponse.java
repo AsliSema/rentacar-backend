@@ -15,4 +15,8 @@ public class GetAllCarResponse {
     private double dailyPrice;
     private int modelId;
     private String modelName;
+    private int userId;
+    private String userFirstName;
+    private String userLastName;
+    private String email;
 }
