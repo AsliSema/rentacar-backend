@@ -9,6 +9,7 @@ import com.tobeto.rentacar.business.dtos.responses.GetFuelResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateFuelResponse;
 import com.tobeto.rentacar.business.rules.FuelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.FuelRepository;
 import com.tobeto.rentacar.entities.concretes.Fuel;
 import lombok.AllArgsConstructor;
@@ -66,5 +67,11 @@ public class FuelManager implements FuelService {
         List<Fuel> fuels = fuelRepository.findAll();
         List<GetAllFuelResponse> response = fuels.stream().map(fuel -> modelMapperService.forResponse().map(fuel, GetAllFuelResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        fuelRepository.deleteById(id);
+        return new Result(true, "Fuel Deleted!");
     }
 }

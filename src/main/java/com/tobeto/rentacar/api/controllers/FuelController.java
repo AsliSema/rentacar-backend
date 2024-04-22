@@ -5,6 +5,7 @@ import com.tobeto.rentacar.business.dtos.requests.CreateBrandRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateFuelRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateFuelRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,4 +42,11 @@ public class FuelController {
     public List<GetAllFuelResponse> getAll(){
         return fuelService.getAll();
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return fuelService.deleteById(id);
+    }
+
 }
