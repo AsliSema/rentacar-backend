@@ -8,9 +8,9 @@ import com.tobeto.rentacar.business.rules.CarBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.CarRepository;
-import com.tobeto.rentacar.entities.concretes.Brand;
-import com.tobeto.rentacar.entities.concretes.Car;
-import com.tobeto.rentacar.entities.concretes.Fuel;
+import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
+import com.tobeto.rentacar.dataAccess.abstracts.UserRepository;
+import com.tobeto.rentacar.entities.concretes.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 public class CarManager implements CarService {
 
     private CarRepository carRepository;
+    private UserRepository userRepository;
+    private ModelRepository  modelRepository;
     private ModelMapperService modelMapperService;
     private CarBusinessRules carBusinessRules;
 
@@ -33,6 +35,7 @@ public class CarManager implements CarService {
         carBusinessRules.checkIfModelExists(request.getModelId());
 
         Car car = this.modelMapperService.forRequest().map(request, Car.class);
+        //car.setState(request.getState());
         car.setCreatedDate(LocalDateTime.now());
         Car createdCar = this.carRepository.save(car);
         CreatedCarResponse createdCarResponse = this.modelMapperService.forResponse().map(createdCar, CreatedCarResponse.class);
@@ -41,7 +44,7 @@ public class CarManager implements CarService {
 
     @Override
     public GetCarResponse get(int id) {
-        Car car = carRepository.findById(id).orElseThrow();
+        Car car = carRepository.findById(id);
         GetCarResponse response = modelMapperService.forResponse().map(car, GetCarResponse.class);
 
         return response;
@@ -49,7 +52,7 @@ public class CarManager implements CarService {
 
     @Override
     public UpdateCarResponse update(UpdateCarRequest request, int id) {
-        Car car = carRepository.findById(id).orElseThrow();
+        Car car = carRepository.findById(id);
         Car updatedCar = modelMapperService.forRequest().map(request, Car.class);
 
 
@@ -57,8 +60,17 @@ public class CarManager implements CarService {
         car.setUpdatedDate(LocalDateTime.now());
         car.setPlate(updatedCar.getPlate() != null ? updatedCar.getPlate() : car.getPlate());
         car.setModelYear(updatedCar.getModelYear() != 0 ? updatedCar.getModelYear() : car.getModelYear());
-        car.setState(updatedCar.getState() != 0 ? updatedCar.getState() : car.getState());
+        car.setState(updatedCar.getState() != null ? updatedCar.getState() : car.getState());
         car.setDailyPrice(updatedCar.getDailyPrice() != 0 ? updatedCar.getDailyPrice() : car.getDailyPrice());
+        car.setColor(updatedCar.getColor() != null ? updatedCar.getColor() : car.getColor());
+        car.setLocation(updatedCar.getLocation() != null ? updatedCar.getLocation(): car.getLocation());
+        car.setKilometer(updatedCar.getKilometer() != 0 ? updatedCar.getKilometer() : car.getKilometer());
+
+        User user = userRepository.findById(request.getUserId()).orElseThrow();
+        car.setUser(user != null ? user : car.getUser());
+
+        Model model = modelRepository.findById(request.getModelId());
+        car.setModel(model != null ? model : car.getModel());
 
         carRepository.save(car);
         UpdateCarResponse response = modelMapperService.forResponse().map(car, UpdateCarResponse.class);

@@ -43,7 +43,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public GetBrandResponse get(int id) {
-        Brand brand = brandRepository.findById(id).orElseThrow();
+        Brand brand = brandRepository.findById(id);
         GetBrandResponse response = modelMapperService.forResponse().map(brand, GetBrandResponse.class);
 
         return response;
@@ -51,7 +51,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public UpdateBrandResponse update(UpdateBrandRequest request, int id) {
-        Brand brand = brandRepository.findById(id).orElseThrow();
+        Brand brand = brandRepository.findById(id);
         Brand updatedBrand = modelMapperService.forRequest().map(request, Brand.class);
 
         brand.setId(id);

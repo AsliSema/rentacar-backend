@@ -51,7 +51,7 @@ public class ModelManager implements ModelService {
 
     @Override
     public GetModelResponse getById(int id) {
-        Model model = modelRepository.findById(id).orElseThrow();
+        Model model = modelRepository.findById(id);
         GetModelResponse response = modelMapperService.forResponse().map(model, GetModelResponse.class);
 
         return response;
@@ -59,21 +59,20 @@ public class ModelManager implements ModelService {
 
     @Override
     public UpdateModelResponse update(UpdateModelRequest request, int id) {
-        Model model = modelRepository.findById(id).orElseThrow();
+        Model model = modelRepository.findById(id);
         Model updatedModel = modelMapperService.forRequest().map(request, Model.class);
 
         model.setId(id);
         model.setUpdatedDate(LocalDateTime.now());
         model.setName(updatedModel.getName() != null ? updatedModel.getName() : model.getName());
 
-
-        Brand brand = brandRepository.findById(request.getBrandId()).orElseThrow();
+        Brand brand = brandRepository.findById(request.getBrandId());
         model.setBrand(brand != null ? brand : model.getBrand());
 
-        Fuel fuel = fuelRepository.findById(request.getFuelId()).orElseThrow();
+        Fuel fuel = fuelRepository.findById(request.getFuelId());
         model.setFuel(fuel != null ? fuel : model.getFuel());
 
-        Transmission transmission = transmissionRepository.findById(request.getTransmissionId()).orElseThrow();
+        Transmission transmission = transmissionRepository.findById(request.getTransmissionId());
         model.setTransmission(transmission != null ? transmission : model.getTransmission());
 
         modelRepository.save(model);

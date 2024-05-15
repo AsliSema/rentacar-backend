@@ -41,7 +41,7 @@ public class FuelManager implements FuelService {
 
     @Override
     public UpdateFuelResponse update(UpdateFuelRequest request, int id) {
-        Fuel fuel = fuelRepository.findById(id).orElseThrow();
+        Fuel fuel = fuelRepository.findById(id);
         Fuel updatedFuel = modelMapperService.forRequest().map(request, Fuel.class);
 
         fuel.setId(id);
@@ -56,7 +56,7 @@ public class FuelManager implements FuelService {
 
     @Override
     public GetFuelResponse getById(int id) {
-        Fuel fuel = fuelRepository.findById(id).orElseThrow();
+        Fuel fuel = fuelRepository.findById(id);
         GetFuelResponse response = modelMapperService.forResponse().map(fuel, GetFuelResponse.class);
 
         return response;

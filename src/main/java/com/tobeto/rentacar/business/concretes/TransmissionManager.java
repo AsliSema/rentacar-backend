@@ -40,7 +40,7 @@ public class TransmissionManager implements TransmissionService {
 
     @Override
     public GetTransmissionResponse getById(int id) {
-        Transmission transmission = transmissionRepository.findById(id).orElseThrow();
+        Transmission transmission = transmissionRepository.findById(id);
         GetTransmissionResponse response = modelMapperService.forResponse().map(transmission, GetTransmissionResponse.class);
 
         return response;
@@ -48,7 +48,7 @@ public class TransmissionManager implements TransmissionService {
 
     @Override
     public UpdateTransmissionResponse update(UpdateTransmissionRequest request, int id) {
-        Transmission transmission = transmissionRepository.findById(id).orElseThrow();
+        Transmission transmission = transmissionRepository.findById(id);
         Transmission updatedTransmission = modelMapperService.forRequest().map(request, Transmission.class);
 
         transmission.setId(id);
