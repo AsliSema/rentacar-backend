@@ -50,7 +50,5 @@ public class User extends BaseEntity {
     @JoinColumn(name= "licenseId")
     private License license;
 
-    @OneToMany(mappedBy = "user")
-    private List<Car> car;
 
 }

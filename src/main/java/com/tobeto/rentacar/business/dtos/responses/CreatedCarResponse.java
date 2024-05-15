@@ -20,5 +20,5 @@ public class CreatedCarResponse {
     private String location;
     private String color;
     private int modelId;
-    private int userId;
+
 }

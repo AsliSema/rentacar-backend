@@ -17,5 +17,4 @@ public class UpdateCarResponse {
     private CarState state;
     private double dailyPrice;
     private String color;
-    private int userId;
 }

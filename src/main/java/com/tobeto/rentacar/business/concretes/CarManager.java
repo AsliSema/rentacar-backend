@@ -66,8 +66,6 @@ public class CarManager implements CarService {
         car.setLocation(updatedCar.getLocation() != null ? updatedCar.getLocation(): car.getLocation());
         car.setKilometer(updatedCar.getKilometer() != 0 ? updatedCar.getKilometer() : car.getKilometer());
 
-        User user = userRepository.findById(request.getUserId());
-        car.setUser(user != null ? user : car.getUser());
 
         Model model = modelRepository.findById(request.getModelId());
         car.setModel(model != null ? model : car.getModel());

@@ -27,6 +27,5 @@ public class UpdateCarRequest {
 
     private int modelId;
 
-    private int userId;
 
 }

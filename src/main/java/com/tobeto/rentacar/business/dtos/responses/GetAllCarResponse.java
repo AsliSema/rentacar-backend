@@ -19,9 +19,4 @@ public class GetAllCarResponse {
     private String color;
     private int modelId;
     private String modelName;
-    private int userId;
-    private String userFirstName;
-    private String userLastName;
-    private String userEmail;
-    private String userPhoneNumber;
 }
