@@ -1,6 +1,7 @@
 package com.tobeto.rentacar.business.dtos.responses;
 
 
+import com.tobeto.rentacar.core.enums.LicenseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,14 @@ public class GetAllUserResponse {
     private String firstName;
     private String lastName;
     private String companyName;
+    private String email;
+    private String phoneNumber;
+    private String identityNumber;
+    private String city;
+    private int licenseId;
+    private String licenseLicenseNumber;
+    private String licenseIssueDate;
+    private String licenseLicenseClass;
+    private String role;
     private LocalDateTime createdDate;
 }

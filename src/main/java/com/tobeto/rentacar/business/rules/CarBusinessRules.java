@@ -24,7 +24,7 @@ public class CarBusinessRules {
     }
 
     public void checkIfModelExists(int modelId){
-        Optional<Model> model = modelRepository.findById(modelId);
+        Optional<Model> model = Optional.ofNullable(modelRepository.findById(modelId));
         if(!model.isPresent()){
             throw new BusinessException("Model couldn't found!");
         }

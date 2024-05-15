@@ -1,5 +1,8 @@
 package com.tobeto.rentacar.business.dtos.responses;
 
+import com.tobeto.rentacar.core.enums.LicenseClass;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +19,9 @@ public class CreatedUserResponse {
     private String lastName;
     private String email;
     private String companyName;
+    private String city;
+    private String role;
+    private int licenseId;
     private LocalDateTime createdDate;
 
 }

@@ -2,10 +2,7 @@ package com.tobeto.rentacar.entities.concretes;
 
 
 import com.tobeto.rentacar.core.entities.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,8 +28,27 @@ public class User extends BaseEntity {
     @Column(name="password")
     private String password;
 
+    @Column(name = "confirmPassword")
+    private String confirmPassword;
+
     @Column(name = "companyName")
     private String companyName;
+
+    @Column(name= "phoneNumber")
+    private String phoneNumber;
+
+    @Column(name="identityNumber")
+    private String identityNumber;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "role")
+    private String role="user";
+
+    @OneToOne
+    @JoinColumn(name= "licenseId")
+    private License license;
 
     @OneToMany(mappedBy = "user")
     private List<Car> car;

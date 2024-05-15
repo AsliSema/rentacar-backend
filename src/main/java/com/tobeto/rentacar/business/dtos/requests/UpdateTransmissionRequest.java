@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateTransmissionRequest {
-    @NotNull
-    @Size(min=2, max=30)
+
     private String name;
 }

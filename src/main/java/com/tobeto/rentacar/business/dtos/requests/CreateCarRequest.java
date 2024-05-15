@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.business.dtos.requests;
 
+import com.tobeto.rentacar.core.enums.CarState;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,16 +15,22 @@ public class CreateCarRequest {
     private int modelYear;
 
     @NotNull
-    @Size(min=5, max=11)
+    @Size(min=7, max=8)
     private String plate;
 
     @NotNull
-    @Min(1)
-    @Max(3)
-    private int state;
+    private int kilometer;
+
+    private CarState state;
 
     @NotNull
     private double dailyPrice;
+
+    @NotNull
+    private String color;
+
+    @NotNull
+    private String location;
 
     @NotNull
     @Positive

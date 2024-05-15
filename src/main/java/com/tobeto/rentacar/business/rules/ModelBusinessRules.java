@@ -32,7 +32,7 @@ public class ModelBusinessRules {
     }
 
     public void checkIfBrandExists(int brandId){
-        Optional<Brand> brand = brandRepository.findById(brandId);
+        Optional<Brand> brand = Optional.ofNullable(brandRepository.findById(brandId));
 
         if(!brand.isPresent()){
             throw new BusinessException("Brand couldn't found!");
@@ -41,7 +41,7 @@ public class ModelBusinessRules {
     }
 
     public void checkIfFuelExists(int fuelId){
-        Optional<Fuel> fuel = fuelRepository.findById(fuelId);
+        Optional<Fuel> fuel = Optional.ofNullable(fuelRepository.findById(fuelId));
 
         if(!fuel.isPresent()){
             throw new BusinessException("Fuel couldn't found!");
@@ -49,7 +49,7 @@ public class ModelBusinessRules {
     }
 
     public void checkIfTransmissionExists(int transmissionId){
-        Optional<Transmission> transmission = transmissionRepository.findById(transmissionId);
+        Optional<Transmission> transmission = Optional.ofNullable(transmissionRepository.findById(transmissionId));
 
         if(!transmission.isPresent()){
             throw new BusinessException("Transmission couldn't found!");
