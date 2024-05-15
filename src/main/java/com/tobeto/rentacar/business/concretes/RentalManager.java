@@ -29,8 +29,7 @@ public class RentalManager implements RentalService {
 
         rentalBusinessRules.checkIfCarExists(request.getCarId());
         rentalBusinessRules.checkIfUserExists(request.getUserId());
-        //rentalBusinessRules.checkIfCarStateAvailable(request.getCarId());
-        rentalBusinessRules.checkIfCarAvailable();
+        rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
         totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
 
 

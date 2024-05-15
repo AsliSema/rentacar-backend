@@ -9,7 +9,6 @@ import com.tobeto.rentacar.entities.concretes.Car;
 import com.tobeto.rentacar.entities.concretes.Rental;
 import com.tobeto.rentacar.entities.concretes.User;
 import lombok.AllArgsConstructor;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -42,27 +41,13 @@ public class RentalBusinessRules {
         }
     }
 
-    public void checkIfCarStateAvailable(int carId){
-        Car car = carRepository.findById(carId);
-        if((car.getState() == CarState.RENTED)){
-            throw new BusinessException("Car is not available!");
-        } else if (car.getState() == CarState.MAINTENANCE) {
-            throw new BusinessException("Car is currently in maintenance!");
+
+    public void checkIfCarAvailable(int carId, LocalDate startDate, LocalDate endDate){
+        List<Rental> rentedCars = rentalRepository.getRentalsByCarIdAndDateRange(carId, startDate, endDate);
+
+        if(!rentedCars.isEmpty()){
+            throw new BusinessException("Car is not available between these days!");
         }
-    }
-
-    public void checkIfCarAvailable(){
-//        List<Rental> rentedCars = rentalRepository.getRentalsByCarIdAndDateRange(carId, startDate, endDate);
-//
-//        System.out.println("rentedCars "+rentedCars);
-//        if(!rentedCars.isEmpty()){
-//            throw new BusinessException("Car is not available between these days!");
-//        }
-
-        List<Rental> rentedCars = rentalRepository.findAll();
-        System.out.println(rentedCars);
-
-
 
     }
 
