@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ModelRepository extends JpaRepository<Model, Integer> {
     Optional<Model> findByNameIgnoreCase(String name);
+
+    Model findById(int id);
 }

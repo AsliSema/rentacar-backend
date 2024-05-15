@@ -7,4 +7,7 @@ import java.util.Optional;
 
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
     Optional<Brand> findByNameIgnoreCase(String name);
+
+    Brand findById(int id);
+
 }
