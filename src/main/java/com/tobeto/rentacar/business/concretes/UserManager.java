@@ -69,7 +69,7 @@ public class UserManager implements UserService {
 
     @Override
     public GetUserResponse get(int id) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id);
         GetUserResponse response = modelMapperService.forResponse().map(user, GetUserResponse.class);
 
         return response;
@@ -78,7 +78,7 @@ public class UserManager implements UserService {
     @Override
     public UpdatedUserResponse update(UpdateUserRequest request, int id) {
 
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id);
         User updatedUser = modelMapperService.forRequest().map(request, User.class);
 
         user.setId(id);
