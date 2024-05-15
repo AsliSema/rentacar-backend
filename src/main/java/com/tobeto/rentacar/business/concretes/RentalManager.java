@@ -2,8 +2,9 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.RentalService;
 import com.tobeto.rentacar.business.dtos.requests.CreateRentalRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedModelResponse;
 import com.tobeto.rentacar.business.dtos.responses.CreatedRentalResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetAllModelResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetAllRentalResponse;
 import com.tobeto.rentacar.business.rules.RentalBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.dataAccess.abstracts.RentalRepository;
@@ -13,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -30,9 +33,8 @@ public class RentalManager implements RentalService {
         rentalBusinessRules.checkIfCarExists(request.getCarId());
         rentalBusinessRules.checkIfUserExists(request.getUserId());
         rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
+        //rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());  //sonsuz döngüye giriyo
         totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
-
-
 
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
 
@@ -44,4 +46,13 @@ public class RentalManager implements RentalService {
         return createdRentalResponse;
 
     }
+
+    @Override
+    public List<GetAllRentalResponse> getAll() {
+        List<Rental> rentals = rentalRepository.findAll();
+        List<GetAllRentalResponse> response = rentals.stream().map(rental -> modelMapperService.forResponse().map(rental, GetAllRentalResponse.class)).collect(Collectors.toList());
+        return response;
+    }
+
+
 }

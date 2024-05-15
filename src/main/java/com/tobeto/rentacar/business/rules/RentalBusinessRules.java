@@ -41,6 +41,19 @@ public class RentalBusinessRules {
         }
     }
 
+    public void checkLocation(int carId, int userId){
+        Optional<Car> car = Optional.ofNullable(carRepository.findById(carId));
+        Optional<User> user = Optional.ofNullable(userRepository.findById(userId));
+
+        System.out.println(car);
+        System.out.println(user);
+
+        if(!car.get().getLocation().equals(user.get().getCity())){
+            throw new BusinessException("You are in a different place from the car!");
+        }
+
+    }
+
 
     public void checkIfCarAvailable(int carId, LocalDate startDate, LocalDate endDate){
         List<Rental> rentedCars = rentalRepository.getRentalsByCarIdAndDateRange(carId, startDate, endDate);
