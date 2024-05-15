@@ -3,10 +3,10 @@ package com.tobeto.rentacar.api.controllers;
 import com.tobeto.rentacar.business.abstracts.RentalService;
 import com.tobeto.rentacar.business.dtos.requests.CreateModelRequest;
 import com.tobeto.rentacar.business.dtos.requests.CreateRentalRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedModelResponse;
-import com.tobeto.rentacar.business.dtos.responses.CreatedRentalResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllModelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllRentalResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
+import com.tobeto.rentacar.business.dtos.requests.UpdateRentalRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
+import com.tobeto.rentacar.core.utilities.results.Result;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,4 +35,24 @@ public class RentalController {
         return rentalService.getAll();
     }
 
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetRentalResponse get(@PathVariable int id){
+        return rentalService.getById(id);
+    }
+
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UpdatedRentalResponse update(@Valid @RequestBody UpdateRentalRequest request, @PathVariable int id){
+        return rentalService.updateById(request, id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Result delete(@PathVariable int id){
+        return rentalService.deleteById(id);
+    }
 }

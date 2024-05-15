@@ -2,14 +2,15 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.RentalService;
 import com.tobeto.rentacar.business.dtos.requests.CreateRentalRequest;
-import com.tobeto.rentacar.business.dtos.responses.CreatedRentalResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllModelResponse;
-import com.tobeto.rentacar.business.dtos.responses.GetAllRentalResponse;
+import com.tobeto.rentacar.business.dtos.requests.UpdateRentalRequest;
+import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.RentalBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
+import com.tobeto.rentacar.core.utilities.results.Result;
+import com.tobeto.rentacar.dataAccess.abstracts.CarRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.RentalRepository;
-import com.tobeto.rentacar.entities.concretes.Model;
-import com.tobeto.rentacar.entities.concretes.Rental;
+import com.tobeto.rentacar.dataAccess.abstracts.UserRepository;
+import com.tobeto.rentacar.entities.concretes.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class RentalManager implements RentalService {
 
     private ModelMapperService modelMapperService;
     private RentalRepository rentalRepository;
+    private UserRepository userRepository;
+    private CarRepository carRepository;
     private RentalBusinessRules rentalBusinessRules;
 
     @Override
@@ -33,7 +36,7 @@ public class RentalManager implements RentalService {
         rentalBusinessRules.checkIfCarExists(request.getCarId());
         rentalBusinessRules.checkIfUserExists(request.getUserId());
         rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
-        //rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());  //sonsuz döngüye giriyo
+        rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());
         totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
 
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);
@@ -52,6 +55,53 @@ public class RentalManager implements RentalService {
         List<Rental> rentals = rentalRepository.findAll();
         List<GetAllRentalResponse> response = rentals.stream().map(rental -> modelMapperService.forResponse().map(rental, GetAllRentalResponse.class)).collect(Collectors.toList());
         return response;
+    }
+
+    @Override
+    public GetRentalResponse getById(int id) {
+        Rental rental = rentalRepository.findById(id);
+        GetRentalResponse response =  modelMapperService.forResponse().map(rental, GetRentalResponse.class);
+
+        return response;
+    }
+
+    @Override
+    public UpdatedRentalResponse updateById(UpdateRentalRequest request, int id) {
+
+        double totalPrice;
+
+        Rental rental = rentalRepository.findById(id);
+        Rental updatedRental = modelMapperService.forRequest().map(request, Rental.class);
+
+        rental.setId(id);
+        rental.setUpdatedDate(LocalDateTime.now());
+        rental.setStartDate(updatedRental.getStartDate() != null ? updatedRental.getStartDate() : rental.getStartDate());
+        rental.setEndDate(updatedRental.getEndDate() != null ? updatedRental.getEndDate() : rental.getEndDate());
+
+        Car car = carRepository.findById(request.getCarId());
+        rental.setCar(car != null ? car : rental.getCar());
+
+        User user = userRepository.findById(request.getUserId());
+        rental.setUser(user != null ? user : rental.getUser());
+
+
+        rentalBusinessRules.checkIfCarExists(request.getCarId());
+        rentalBusinessRules.checkIfUserExists(request.getUserId());
+        rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
+        rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());
+        totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
+
+        rentalRepository.save(rental);
+
+        UpdatedRentalResponse response = modelMapperService.forResponse().map(rental, UpdatedRentalResponse.class);
+
+        return response;
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        rentalRepository.deleteById(id);
+        return new Result(true, "Rental Deleted!");
     }
 
 

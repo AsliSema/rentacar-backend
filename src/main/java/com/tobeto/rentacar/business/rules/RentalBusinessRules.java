@@ -1,5 +1,9 @@
 package com.tobeto.rentacar.business.rules;
 
+import com.tobeto.rentacar.business.abstracts.CarService;
+import com.tobeto.rentacar.business.abstracts.UserService;
+import com.tobeto.rentacar.business.dtos.responses.GetCarResponse;
+import com.tobeto.rentacar.business.dtos.responses.GetUserResponse;
 import com.tobeto.rentacar.core.enums.CarState;
 import com.tobeto.rentacar.core.utilities.exceptions.types.BusinessException;
 import com.tobeto.rentacar.dataAccess.abstracts.CarRepository;
@@ -22,6 +26,8 @@ public class RentalBusinessRules {
     private UserRepository userRepository;
     private CarRepository carRepository;
     private RentalRepository rentalRepository;
+    private CarService carService;
+    private UserService userService;
 
 
     public void checkIfCarExists(int carId){
@@ -42,13 +48,12 @@ public class RentalBusinessRules {
     }
 
     public void checkLocation(int carId, int userId){
-        Optional<Car> car = Optional.ofNullable(carRepository.findById(carId));
-        Optional<User> user = Optional.ofNullable(userRepository.findById(userId));
 
-        System.out.println(car);
-        System.out.println(user);
+        GetCarResponse car = carService.get(carId);
+        GetUserResponse user = userService.get(userId);
 
-        if(!car.get().getLocation().equals(user.get().getCity())){
+
+        if(!car.getLocation().equals(user.getCity())){
             throw new BusinessException("You are in a different place from the car!");
         }
 
@@ -65,7 +70,8 @@ public class RentalBusinessRules {
     }
 
     public double totalPriceForDateRange(int carId, LocalDate startDate, LocalDate endDate) {
-        Car car = carRepository.findById(carId);
+        //Car car = carRepository.findById(carId);
+        GetCarResponse car = carService.get(carId);
         double dailyPrice = car.getDailyPrice();
         double totalDays = (double) ChronoUnit.DAYS.between(startDate, endDate) + 1;
         return dailyPrice * totalDays;
