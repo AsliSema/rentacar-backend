@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")   //Frontend de gelen istekleri hatasız karşılaması için
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/cars")

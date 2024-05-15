@@ -8,6 +8,7 @@ import com.tobeto.rentacar.business.dtos.responses.GetAllBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.GetBrandResponse;
 import com.tobeto.rentacar.business.dtos.responses.UpdateBrandResponse;
 import com.tobeto.rentacar.core.utilities.results.Result;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")  //Frontend de gelen istekleri hatasız karşılaması için
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/brands")

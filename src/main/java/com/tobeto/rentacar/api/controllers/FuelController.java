@@ -37,6 +37,7 @@ public class FuelController {
         return fuelService.update(request, id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")  //Frontend de gelen istekleri hatasız karşılaması için
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllFuelResponse> getAll(){
