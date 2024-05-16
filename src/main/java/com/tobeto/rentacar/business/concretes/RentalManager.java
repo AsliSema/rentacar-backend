@@ -33,10 +33,15 @@ public class RentalManager implements RentalService {
 
         double totalPrice;
 
+        rentalBusinessRules.checkIfUserDoesntHaveLicense(request.getUserId());
+        rentalBusinessRules.checkUserLicenseYear(request.getUserId());
         rentalBusinessRules.checkIfCarExists(request.getCarId());
         rentalBusinessRules.checkIfUserExists(request.getUserId());
         rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
         rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());
+
+
+
         totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
 
         Rental rental = this.modelMapperService.forRequest().map(request, Rental.class);

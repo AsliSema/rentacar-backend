@@ -77,4 +77,25 @@ public class RentalBusinessRules {
         return dailyPrice * totalDays;
     }
 
+
+    public void checkIfUserDoesntHaveLicense(int userId){
+        Optional<User> user = Optional.ofNullable(userRepository.findById(userId));
+
+        if((user.get().getLicense() == null)){
+            throw new BusinessException("It seems you don't have a driver's license! If you do, you should update your license!");
+        }
+
+    }
+
+    public void checkUserLicenseYear(int userId){
+        Optional<User> user = Optional.ofNullable(userRepository.findById(userId));
+
+        int totalYears = (int) ChronoUnit.YEARS.between(user.get().getLicense().getIssueDate(), LocalDate.now());
+
+
+        if(totalYears < 1){
+            throw new BusinessException("If you have had a driver's license for less than one year, you cannot rent a car!");
+        }
+
+    }
 }
