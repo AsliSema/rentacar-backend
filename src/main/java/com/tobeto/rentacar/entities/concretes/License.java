@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class License extends BaseEntity {
     private String licenseNumber;
 
     @Column(name = "issueDate")
-    private LocalDateTime issueDate;
+    private LocalDate issueDate;
 
     @Column(name = "licenseClass")
     @Enumerated(EnumType.STRING)
@@ -28,5 +28,11 @@ public class License extends BaseEntity {
 
     @OneToOne(mappedBy = "license")
     private User user;
+
+
+    @Override
+    public String toString() {
+        return "License(licenseNumber=" + this.getLicenseNumber() + ", issueDate=" + this.getIssueDate() + ", licenseClass=" + this.getLicenseClass() + ", user=" + (this.getUser() != null ? this.getUser().getId() : "null") + ")";
+    }
 
 }
