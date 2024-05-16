@@ -41,4 +41,8 @@ public class Car extends BaseEntity {
     private Model model;
 
 
+    public String toString() {
+        return "Car(modelYear=" + this.getModelYear() + ", plate=" + this.getPlate() + ", kilometer=" + this.getKilometer() + ", state=" + this.getState() + ", dailyPrice=" + this.getDailyPrice() + ", color=" + this.getColor() + ", location=" + this.getLocation() + ", model=" + (this.getModel() != null ? this.getModel().getId() : "null") + ")";
+    }
+
 }

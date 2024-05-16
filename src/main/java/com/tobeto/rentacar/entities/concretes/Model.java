@@ -31,4 +31,13 @@ public class Model extends BaseEntity {
 
     @OneToMany(mappedBy = "model")
     private List<Car> cars;
+
+
+
+    @Override
+    public String toString() {
+        return "Model(name=" + this.getName() + ", brand=" + (this.getBrand() != null ? this.getBrand().getId() : "null") + ", fuel=" + (this.getFuel() != null ? this.getFuel().getId() : "null") + ", transmission=" + (this.getTransmission() != null ? this.getTransmission().getId() : "null") + ", cars=" + this.getCars() + ")";
+    }
+
+
 }

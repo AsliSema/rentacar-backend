@@ -11,7 +11,9 @@ import com.tobeto.rentacar.business.rules.FuelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.FuelRepository;
+import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
 import com.tobeto.rentacar.entities.concretes.Fuel;
+import com.tobeto.rentacar.entities.concretes.Model;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class FuelManager implements FuelService {
 
     private FuelRepository fuelRepository;
+    private ModelRepository modelRepository;
     private ModelMapperService modelMapperService;
     private FuelBusinessRules fuelBusinessRules;
 
@@ -71,6 +74,11 @@ public class FuelManager implements FuelService {
 
     @Override
     public Result deleteById(int id) {
+
+        List<Model> getAllByFuelId = modelRepository.findByFuelId(id);
+
+        getAllByFuelId.forEach(model -> model.setFuel(null));
+
         fuelRepository.deleteById(id);
         return new Result(true, "Fuel Deleted!");
     }

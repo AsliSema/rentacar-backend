@@ -8,14 +8,8 @@ import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.ModelBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
-import com.tobeto.rentacar.dataAccess.abstracts.BrandRepository;
-import com.tobeto.rentacar.dataAccess.abstracts.FuelRepository;
-import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
-import com.tobeto.rentacar.dataAccess.abstracts.TransmissionRepository;
-import com.tobeto.rentacar.entities.concretes.Brand;
-import com.tobeto.rentacar.entities.concretes.Fuel;
-import com.tobeto.rentacar.entities.concretes.Model;
-import com.tobeto.rentacar.entities.concretes.Transmission;
+import com.tobeto.rentacar.dataAccess.abstracts.*;
+import com.tobeto.rentacar.entities.concretes.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +27,7 @@ public class ModelManager implements ModelService {
     private BrandRepository brandRepository;
     private FuelRepository fuelRepository;
     private TransmissionRepository transmissionRepository;
+    private CarRepository carRepository;
 
     @Override
     public CreatedModelResponse add(CreateModelRequest createModelRequest) {
@@ -92,6 +87,11 @@ public class ModelManager implements ModelService {
 
     @Override
     public Result deleteById(int id) {
+
+        List<Car> getAllCarsByModelId = carRepository.findByModelId(id);
+
+        getAllCarsByModelId.forEach(car -> car.setModel(null));
+
         modelRepository.deleteById(id);
         return new Result(true, "Model Deleted!");
     }

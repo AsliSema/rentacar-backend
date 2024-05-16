@@ -11,7 +11,9 @@ import com.tobeto.rentacar.business.rules.BrandBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.BrandRepository;
+import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
 import com.tobeto.rentacar.entities.concretes.Brand;
+import com.tobeto.rentacar.entities.concretes.Model;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class BrandManager implements BrandService {
 
     private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private ModelRepository modelRepository;
     private BrandBusinessRules brandBusinessRules;
 
 
@@ -73,6 +76,11 @@ public class BrandManager implements BrandService {
 
     @Override
     public Result deleteById(int id) {
+        List<Model> getModelsByBrandId = modelRepository.findByBrandId(id);
+
+        getModelsByBrandId.forEach(model -> model.setBrand(null));
+        System.out.println(getModelsByBrandId);
+
         brandRepository.deleteById(id);
         return new Result(true, "Brand deleted!");
     }

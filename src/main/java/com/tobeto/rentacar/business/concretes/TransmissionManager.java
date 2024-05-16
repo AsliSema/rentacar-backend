@@ -7,9 +7,11 @@ import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.TransmissionBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
+import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.TransmissionRepository;
 import com.tobeto.rentacar.entities.concretes.Brand;
 import com.tobeto.rentacar.entities.concretes.Fuel;
+import com.tobeto.rentacar.entities.concretes.Model;
 import com.tobeto.rentacar.entities.concretes.Transmission;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class TransmissionManager implements TransmissionService {
 
     private TransmissionRepository transmissionRepository;
+    private ModelRepository modelRepository;
     private ModelMapperService modelMapperService;
     private TransmissionBusinessRules transmissionBusinessRules;
 
@@ -71,7 +74,13 @@ public class TransmissionManager implements TransmissionService {
 
     @Override
     public Result deleteById(int id) {
+
+        List<Model> getAllByTransmissionId = modelRepository.findByTransmissionId(id);
+
+        getAllByTransmissionId.forEach(model -> model.setTransmission(null));
+
         transmissionRepository.deleteById(id);
+
         return new Result(true, "Transmission Deleted!");
     }
 }
