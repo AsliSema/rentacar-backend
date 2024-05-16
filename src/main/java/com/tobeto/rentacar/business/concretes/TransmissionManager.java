@@ -9,8 +9,6 @@ import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.ModelRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.TransmissionRepository;
-import com.tobeto.rentacar.entities.concretes.Brand;
-import com.tobeto.rentacar.entities.concretes.Fuel;
 import com.tobeto.rentacar.entities.concretes.Model;
 import com.tobeto.rentacar.entities.concretes.Transmission;
 import lombok.AllArgsConstructor;

@@ -6,15 +6,11 @@ import com.tobeto.rentacar.business.dtos.requests.CreateUserRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateUserRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.UserBusinessRules;
-import com.tobeto.rentacar.core.enums.LicenseClass;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
 import com.tobeto.rentacar.dataAccess.abstracts.LicenseRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.UserRepository;
-import com.tobeto.rentacar.entities.concretes.Brand;
-import com.tobeto.rentacar.entities.concretes.License;
 import com.tobeto.rentacar.entities.concretes.User;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

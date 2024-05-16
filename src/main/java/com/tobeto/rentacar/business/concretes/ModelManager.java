@@ -1,6 +1,5 @@
 package com.tobeto.rentacar.business.concretes;
 
-import com.tobeto.rentacar.business.abstracts.BrandService;
 import com.tobeto.rentacar.business.abstracts.ModelService;
 import com.tobeto.rentacar.business.dtos.requests.CreateModelRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
