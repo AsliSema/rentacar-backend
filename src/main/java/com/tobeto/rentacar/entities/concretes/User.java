@@ -56,8 +56,6 @@ public class User extends BaseEntity implements UserDetails{
     @JoinColumn(name= "licenseId")
     private License license;
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
