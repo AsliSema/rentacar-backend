@@ -1,20 +1,28 @@
 package com.tobeto.rentacar.entities.concretes;
 
 
+import ch.qos.logback.classic.spi.LoggingEventVO;
 import com.tobeto.rentacar.core.entities.BaseEntity;
+import com.tobeto.rentacar.core.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Entity
 @Table(name="users")
-public class User extends BaseEntity {
+@Builder
+public class User extends BaseEntity implements UserDetails{
 
     @Column(name="firstName")
     private String firstName;
@@ -28,9 +36,6 @@ public class User extends BaseEntity {
     @Column(name="password")
     private String password;
 
-    @Column(name = "confirmPassword")
-    private String confirmPassword;
-
     @Column(name = "companyName")
     private String companyName;
 
@@ -43,12 +48,43 @@ public class User extends BaseEntity {
     @Column(name = "city")
     private String city;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role="user";
+    private Role role = Role.USER;
 
     @OneToOne
     @JoinColumn(name= "licenseId")
     private License license;
 
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

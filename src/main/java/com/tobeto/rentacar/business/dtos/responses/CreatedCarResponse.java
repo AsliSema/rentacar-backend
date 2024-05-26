@@ -19,6 +19,7 @@ public class CreatedCarResponse {
     private double dailyPrice;
     private String location;
     private String color;
+    private String imagePath;
     private int modelId;
 
 }

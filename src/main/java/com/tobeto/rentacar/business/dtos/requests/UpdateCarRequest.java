@@ -21,6 +21,8 @@ public class UpdateCarRequest {
 
     private double dailyPrice;
 
+    private String imagePath;
+
     private String color;
 
     private String location;

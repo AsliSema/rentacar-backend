@@ -24,6 +24,9 @@ public class CreateCarRequest {
     private CarState state;
 
     @NotNull
+    private String imagePath;
+
+    @NotNull
     private double dailyPrice;
 
     @NotNull

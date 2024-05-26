@@ -33,6 +33,9 @@ public class Car extends BaseEntity {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "imagePath")
+    private String imagePath;
+
     @Column(name="location")
     private String location;
 

@@ -27,4 +27,12 @@ public class UserBusinessRules {
         }
     }
 
+    public void checkUserPresence(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        if(!user.isPresent()){
+            throw new BusinessException("You Need to Register First!");
+        }
+    }
+
+
 }

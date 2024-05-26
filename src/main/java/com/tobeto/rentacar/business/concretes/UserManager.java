@@ -3,19 +3,23 @@ package com.tobeto.rentacar.business.concretes;
 
 import com.tobeto.rentacar.business.abstracts.UserService;
 import com.tobeto.rentacar.business.dtos.requests.CreateUserRequest;
+import com.tobeto.rentacar.business.dtos.requests.FindUserByEmailRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateUserRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.UserBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
-import com.tobeto.rentacar.dataAccess.abstracts.LicenseRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.UserRepository;
 import com.tobeto.rentacar.entities.concretes.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -24,44 +28,9 @@ public class UserManager implements UserService {
 
     private UserRepository userRepository;
     private ModelMapperService modelMapperService;
-    private UserBusinessRules userBusinessRules;
-    private LicenseRepository licenseRepository;
 
-    @Override
-    public CreatedUserResponse add(CreateUserRequest request) {
+    private BCryptPasswordEncoder passwordEncoder;
 
-        userBusinessRules.checkIfUserExist(request.getEmail());
-        userBusinessRules.checkIfPasswordWrittenCorrectly(request.getPassword(), request.getConfirmPassword());
-
-        User user = this.modelMapperService.forRequest().map(request, User.class);
-        user.setCreatedDate(LocalDateTime.now());
-        User createdUser = this.userRepository.save(user);
-
-//        User user = new User();
-//        user.setIdentityNumber(request.getIdentityNumber());
-//        user.setCity(request.getCity());
-//        user.setCompanyName(request.getCompanyName());
-//        user.setPassword(request.getPassword());
-//        user.setEmail(request.getEmail());
-//        user.setPhoneNumber(request.getPhoneNumber());
-//        user.setFirstName(request.getFirstName());
-//        user.setLastName(request.getLastName());
-//        user.setCreatedDate(LocalDateTime.now());
-//
-//        User createdUser = this.userRepository.save(user);
-//
-//        License license = new License();
-//
-//        license.setLicenseNumber(request.getLicenseLicenseNumber());
-//        license.setLicenseClass(request.getLicenseLicenseClass());
-//        license.setIssueDate(request.getLicenseIssueDate());
-//
-//        License createdLicense = this.licenseRepository.save(license);
-
-        CreatedUserResponse createdUserResponse = this.modelMapperService.forResponse().map(createdUser, CreatedUserResponse.class);
-        return createdUserResponse;
-
-    }
 
     @Override
     public GetUserResponse get(int id) {
@@ -85,8 +54,7 @@ public class UserManager implements UserService {
         user.setFirstName(updatedUser.getFirstName() != null ? updatedUser.getFirstName() : user.getFirstName());
         user.setLastName(updatedUser.getLastName() != null ? updatedUser.getLastName() : user.getLastName());
         user.setPhoneNumber(updatedUser.getPhoneNumber() != null ? updatedUser.getPhoneNumber() : user.getPhoneNumber());
-        user.setPassword(updatedUser.getPassword() != null ? updatedUser.getPassword() : user.getPassword());
-        user.setConfirmPassword(updatedUser.getConfirmPassword() != null ? updatedUser.getConfirmPassword() : user.getConfirmPassword());
+        user.setPassword(updatedUser.getPassword() != null ? passwordEncoder.encode(updatedUser.getPassword()) : user.getPassword());
         user.setIdentityNumber(updatedUser.getIdentityNumber() != null ? updatedUser.getIdentityNumber() : user.getIdentityNumber());
 
         userRepository.save(user);
@@ -102,6 +70,14 @@ public class UserManager implements UserService {
         return response;
     }
 
+    @Override
+    public FindByEmailResponse getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+
+        FindByEmailResponse response = modelMapperService.forResponse().map(user.get(), FindByEmailResponse.class);
+        return response;
+    }
+
 
     @Override
     public Result deleteById(int id) {
@@ -110,4 +86,8 @@ public class UserManager implements UserService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not exists!"));
+    }
 }

@@ -2,6 +2,7 @@ package com.tobeto.rentacar.business.dtos.responses;
 
 
 import com.tobeto.rentacar.core.enums.LicenseClass;
+import com.tobeto.rentacar.core.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -17,6 +17,13 @@ public class GetCarResponse {
     private CarState state;
     private double dailyPrice;
     private String color;
+    private String imagePath;
     private int modelId;
+    private int brandId;
+    private int fuelId;
+    private int transmissionId;
     private String modelName;
+    private String brandName;
+    private String fuelName;
+    private String transmissionName;
 }

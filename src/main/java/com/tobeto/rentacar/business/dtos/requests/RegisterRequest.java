@@ -1,21 +1,17 @@
 package com.tobeto.rentacar.business.dtos.requests;
 
-
-import com.tobeto.rentacar.core.enums.LicenseClass;
 import com.tobeto.rentacar.core.enums.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
-import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class CreateUserRequest {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegisterRequest {
 
     @NotEmpty(message = "First name must not be empty!")
     @Size(min = 2, max = 50, message = "First name must be at least 2 characters!")
@@ -37,7 +33,6 @@ public class CreateUserRequest {
 
     private String confirmPassword;
 
-
     private String companyName;
 
     @NotBlank
@@ -51,5 +46,5 @@ public class CreateUserRequest {
     @NotEmpty
     private String city;
 
-
+//    private Role role;
 }

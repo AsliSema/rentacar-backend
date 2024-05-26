@@ -2,6 +2,7 @@ package com.tobeto.rentacar.api.controllers;
 
 import com.tobeto.rentacar.business.abstracts.UserService;
 import com.tobeto.rentacar.business.dtos.requests.CreateUserRequest;
+import com.tobeto.rentacar.business.dtos.requests.FindUserByEmailRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateModelRequest;
 import com.tobeto.rentacar.business.dtos.requests.UpdateUserRequest;
 import com.tobeto.rentacar.business.dtos.responses.*;
@@ -18,13 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("api/v1/users")
 public class UserController {
+
     private UserService userService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CreatedUserResponse add(@Valid @RequestBody CreateUserRequest request){
-        return userService.add(request);
-    }
 
 
     @GetMapping("/{id}")
@@ -44,6 +41,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetAllUserResponse> getAll(){
         return userService.getAll();
+    }
+
+
+    @PostMapping("/findByEmail")
+    @ResponseStatus(HttpStatus.OK)
+    public FindByEmailResponse findByEmail(@RequestBody String email){
+        return userService.getUserByEmail(email);
     }
 
     @DeleteMapping("/{id}")

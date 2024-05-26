@@ -14,3 +14,6 @@ spring:
         persistence:
           validation:
             mode: none
+jwt:
+  key: 43yX9KQ7HTO0Ed2W/cmEP0xG86stJXSLoo39OjdplFbNYao2X0Hv6hj0TLz7RNIJOqhj25XsXXl0p3KjxJeL4lObrOcR2S1mWIvKw0+LQ7jCWZFY4CpUGXAIohsHV6kECu+uSgFSRWkKw0jppTeWP9WqxOrM1asS3v8NgqcqjUc=
+

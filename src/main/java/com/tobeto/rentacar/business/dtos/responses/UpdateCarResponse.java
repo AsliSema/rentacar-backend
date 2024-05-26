@@ -15,6 +15,7 @@ public class UpdateCarResponse {
     private int kilometer;
     private String location;
     private CarState state;
+    private String imagePath;
     private double dailyPrice;
     private String color;
 }
