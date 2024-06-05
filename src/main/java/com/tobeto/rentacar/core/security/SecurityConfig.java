@@ -45,10 +45,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui.html",
             "/api/v1/auth/register",
-            "/api/v1/auth/login",
-            "/api/v1/users/findByEmail",
-             "/api/v1/licenses/**"
-//            "/api/v1/cars/**", "/api/v1/models/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**"
+            "/api/v1/auth/login"
     };
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserService userService, PasswordEncoder passwordEncoder) {
@@ -64,14 +61,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x ->
                                x.requestMatchers(AVAILABLE_URLS).permitAll()
-                                       .requestMatchers(HttpMethod.GET, "/api/v1/cars/**", "/api/v1/models/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**").permitAll()
+                                       .requestMatchers(HttpMethod.GET, "/api/v1/cars/**", "/api/v1/models/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**", "/api/v1/rentals/**").permitAll()
                                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login").permitAll()
                                        .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
-                                       .requestMatchers(HttpMethod.GET,"/api/v1/users/**" ).hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
-                                       .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**", "/api/v1/rentals/**", "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**", "/api/v1/licenses/**").hasAuthority(Role.ADMIN.name())
-                                       .requestMatchers(HttpMethod.POST,  "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**").hasAuthority(Role.ADMIN.name())
-                                       .requestMatchers(HttpMethod.PUT, "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**").hasAuthority(Role.ADMIN.name())
-                                      // .anyRequest().authenticated()
+                                       .requestMatchers(HttpMethod.GET,"/api/v1/users/**", "/api/v1/users/findByEmail", "/api/v1/licenses/**" ).hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                                       .requestMatchers(HttpMethod.POST, "/api/v1/auth/rentals", "/api/v1/licenses/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                                       .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**", "/api/v1/rentals/**", "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**", "/api/v1/licenses/**", "/api/v1/models/**").hasAuthority(Role.ADMIN.name())
+                                       .requestMatchers(HttpMethod.POST,  "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**", "/api/v1/rentals/**", "/api/v1/models/**").hasAuthority(Role.ADMIN.name())
+                                       .requestMatchers(HttpMethod.PUT, "/api/v1/cars/**", "/api/v1/brands/**", "/api/v1/fuels/**", "/api/v1/transmission/**", "/api/v1/models/**" ,"/api/v1/rentals/**").hasAuthority(Role.ADMIN.name())
+                                       .anyRequest().authenticated()
                 )
                 .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

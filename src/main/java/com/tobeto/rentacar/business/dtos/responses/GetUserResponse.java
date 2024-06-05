@@ -22,9 +22,9 @@ public class GetUserResponse {
     private String phoneNumber;
     private String identityNumber;
     private int licenseId;
-    private String licenseLicenseNumber;
-    private String licenseIssueDate;
-    private String licenseLicenseClass;
+    private String licenseNumber;
+    private String issueDate;
+    private String licenseClass;
     private Role role;
     private LocalDateTime createdDate;
 

@@ -9,37 +9,23 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllRentalResponse {
-
+public class GetRentalByUserIdResponse {
     private int id;
-
     private LocalDate startDate;
-
     private LocalDate endDate;
-
     private int totalPrice;
-
     private int carId;
-
+    private String carColor;
     private String carPlate;
-
+    private String carColorName;
+    private String carImagePath;
     private double carDailyPrice;
-
-    private int userId;
-
     private int modelId;
-
-    private int brandId;
-
     private String modelName;
-
+    private int transmissionId;
+    private String transmissionName;
+    private int fuelId;
+    private String fuelName;
     private String brandName;
 
-    private String userFirstName;
-
-    private String userLastName;
-
-    private String userEmail;
-
-    private String userPhoneNumber;
 }

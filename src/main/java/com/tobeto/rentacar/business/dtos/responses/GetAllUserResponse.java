@@ -22,9 +22,9 @@ public class GetAllUserResponse {
     private String identityNumber;
     private String city;
     private int licenseId;
-    private String licenseLicenseNumber;
-    private String licenseIssueDate;
-    private String licenseLicenseClass;
+    private String licenseNumber;
+    private String issueDate;
+    private String licenseClass;
     private String role;
     private LocalDateTime createdDate;
 }

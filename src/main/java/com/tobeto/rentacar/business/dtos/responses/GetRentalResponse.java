@@ -26,6 +26,10 @@ public class GetRentalResponse {
 
     private int userId;
 
+    private String modelName;
+
+    private String brandName;
+
     private String userFirstName;
 
     private String userLastName;
