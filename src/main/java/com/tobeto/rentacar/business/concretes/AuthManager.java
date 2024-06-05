@@ -52,10 +52,10 @@ public class AuthManager implements AuthService {
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .identityNumber(request.getIdentityNumber())
-                .city(request.getCity())
+                .city(request.getCity().toLowerCase())
                 .companyName(request.getCompanyName())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ADMIN)
+                .role(Role.USER)
                 .build();
 
         newUser.setCreatedDate(LocalDateTime.now());
@@ -73,7 +73,6 @@ public class AuthManager implements AuthService {
 
 
         if(!passwordEncoder.matches(request.getPassword(), user.get().getPassword())){
-            //new BusinessException("Wrong Password!");
             throw new IllegalStateException("Wrong email or password!");
         }
 

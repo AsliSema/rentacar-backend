@@ -76,10 +76,6 @@ public class BrandManager implements BrandService {
 
     @Override
     public Result deleteById(int id) {
-        List<Model> getModelsByBrandId = modelRepository.findByBrandId(id);
-
-        getModelsByBrandId.forEach(model -> model.setBrand(null));
-        System.out.println(getModelsByBrandId);
 
         brandRepository.deleteById(id);
         return new Result(true, "Brand deleted!");

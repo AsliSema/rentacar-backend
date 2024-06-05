@@ -86,11 +86,6 @@ public class ModelManager implements ModelService {
 
     @Override
     public Result deleteById(int id) {
-
-        List<Car> getAllCarsByModelId = carRepository.findByModelId(id);
-
-        getAllCarsByModelId.forEach(car -> car.setModel(null));
-
         modelRepository.deleteById(id);
         return new Result(true, "Model Deleted!");
     }

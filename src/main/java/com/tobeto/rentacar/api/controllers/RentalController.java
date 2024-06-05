@@ -50,6 +50,14 @@ public class RentalController {
     }
 
 
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetRentalByUserIdResponse> findRentalsByUser(@PathVariable int id){
+        return rentalService.getRentalByUser(id);
+    }
+
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Result delete(@PathVariable int id){

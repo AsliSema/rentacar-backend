@@ -28,18 +28,18 @@ public class RentalManager implements RentalService {
     private CarRepository carRepository;
     private RentalBusinessRules rentalBusinessRules;
 
+
     @Override
     public CreatedRentalResponse add(CreateRentalRequest request) {
 
         double totalPrice;
 
-        rentalBusinessRules.checkIfUserDoesntHaveLicense(request.getUserId());
-        rentalBusinessRules.checkUserLicenseYear(request.getUserId());
         rentalBusinessRules.checkIfCarExists(request.getCarId());
         rentalBusinessRules.checkIfUserExists(request.getUserId());
-        rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
+        rentalBusinessRules.checkIfUserDoesntHaveLicense(request.getUserId());
+        rentalBusinessRules.checkUserLicenseYear(request.getUserId());
         rentalBusinessRules.checkLocation(request.getCarId(), request.getUserId());
-
+        rentalBusinessRules.checkIfCarAvailable(request.getCarId(), request.getStartDate(), request.getEndDate());
 
 
         totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
@@ -83,8 +83,12 @@ public class RentalManager implements RentalService {
         rental.setStartDate(updatedRental.getStartDate() != null ? updatedRental.getStartDate() : rental.getStartDate());
         rental.setEndDate(updatedRental.getEndDate() != null ? updatedRental.getEndDate() : rental.getEndDate());
 
+
         Car car = carRepository.findById(request.getCarId());
         rental.setCar(car != null ? car : rental.getCar());
+
+        totalPrice = rentalBusinessRules.totalPriceForDateRange(request.getCarId(), request.getStartDate(), request.getEndDate());
+        rental.setTotalPrice(totalPrice);
 
         User user = userRepository.findById(request.getUserId());
         rental.setUser(user != null ? user : rental.getUser());
@@ -107,6 +111,14 @@ public class RentalManager implements RentalService {
     public Result deleteById(int id) {
         rentalRepository.deleteById(id);
         return new Result(true, "Rental Deleted!");
+    }
+
+    @Override
+    public List<GetRentalByUserIdResponse> getRentalByUser(int id) {
+        List<Rental> rentals = rentalRepository.findRentalsByUserId(id);
+        List<GetRentalByUserIdResponse> response =  rentals.stream().map(rental -> modelMapperService.forResponse().map(rental, GetRentalByUserIdResponse.class)).collect(Collectors.toList());
+
+        return response;
     }
 
 

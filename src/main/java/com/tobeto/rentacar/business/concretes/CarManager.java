@@ -37,6 +37,7 @@ public class CarManager implements CarService {
         Car car = this.modelMapperService.forRequest().map(request, Car.class);
         //car.setState(request.getState());
         car.setCreatedDate(LocalDateTime.now());
+        car.setLocation(request.getLocation().toLowerCase());
         Car createdCar = this.carRepository.save(car);
         CreatedCarResponse createdCarResponse = this.modelMapperService.forResponse().map(createdCar, CreatedCarResponse.class);
         return createdCarResponse;
@@ -63,7 +64,7 @@ public class CarManager implements CarService {
         car.setState(updatedCar.getState() != null ? updatedCar.getState() : car.getState());
         car.setDailyPrice(updatedCar.getDailyPrice() != 0 ? updatedCar.getDailyPrice() : car.getDailyPrice());
         car.setColor(updatedCar.getColor() != null ? updatedCar.getColor() : car.getColor());
-        car.setLocation(updatedCar.getLocation() != null ? updatedCar.getLocation(): car.getLocation());
+        car.setLocation(updatedCar.getLocation().toLowerCase() != null ? updatedCar.getLocation().toLowerCase(): car.getLocation());
         car.setKilometer(updatedCar.getKilometer() != 0 ? updatedCar.getKilometer() : car.getKilometer());
 
 

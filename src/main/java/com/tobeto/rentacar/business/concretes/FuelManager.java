@@ -74,11 +74,6 @@ public class FuelManager implements FuelService {
 
     @Override
     public Result deleteById(int id) {
-
-        List<Model> getAllByFuelId = modelRepository.findByFuelId(id);
-
-        getAllByFuelId.forEach(model -> model.setFuel(null));
-
         fuelRepository.deleteById(id);
         return new Result(true, "Fuel Deleted!");
     }

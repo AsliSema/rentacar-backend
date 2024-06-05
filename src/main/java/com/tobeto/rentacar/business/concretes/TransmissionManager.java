@@ -72,13 +72,7 @@ public class TransmissionManager implements TransmissionService {
 
     @Override
     public Result deleteById(int id) {
-
-        List<Model> getAllByTransmissionId = modelRepository.findByTransmissionId(id);
-
-        getAllByTransmissionId.forEach(model -> model.setTransmission(null));
-
         transmissionRepository.deleteById(id);
-
         return new Result(true, "Transmission Deleted!");
     }
 }

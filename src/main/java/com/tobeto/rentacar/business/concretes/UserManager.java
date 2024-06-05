@@ -9,7 +9,9 @@ import com.tobeto.rentacar.business.dtos.responses.*;
 import com.tobeto.rentacar.business.rules.UserBusinessRules;
 import com.tobeto.rentacar.core.utilities.mapping.ModelMapperService;
 import com.tobeto.rentacar.core.utilities.results.Result;
+import com.tobeto.rentacar.dataAccess.abstracts.LicenseRepository;
 import com.tobeto.rentacar.dataAccess.abstracts.UserRepository;
+import com.tobeto.rentacar.entities.concretes.License;
 import com.tobeto.rentacar.entities.concretes.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class UserManager implements UserService {
 
     private UserRepository userRepository;
+    private LicenseRepository licenseRepository;
     private ModelMapperService modelMapperService;
 
     private BCryptPasswordEncoder passwordEncoder;
@@ -35,8 +38,8 @@ public class UserManager implements UserService {
     @Override
     public GetUserResponse get(int id) {
         User user = userRepository.findById(id);
-        GetUserResponse response = modelMapperService.forResponse().map(user, GetUserResponse.class);
 
+        GetUserResponse response = modelMapperService.forResponse().map(user, GetUserResponse.class);
         return response;
     }
 
