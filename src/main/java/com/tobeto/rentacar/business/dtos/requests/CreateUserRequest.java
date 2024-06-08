@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 public class CreateUserRequest {
 
     @NotEmpty(message = "First name must not be empty!")
-    @Size(min = 2, max = 50, message = "First name must be at least 2 characters!")
+    @Size(min = 2, max = 20, message = "First name must be at least 2 characters!")
     private String firstName;
 
     @NotEmpty(message = "Last name must not be empty!")
-    @Size(min = 2, max = 50, message = "Last name must be at least 2 characters!")
+    @Size(min = 2, max = 20, message = "Last name must be at least 2 characters!")
     private String lastName;
 
     @NotEmpty(message = "Email must not be empty!")

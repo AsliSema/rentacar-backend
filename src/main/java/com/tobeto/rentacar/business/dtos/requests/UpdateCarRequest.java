@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UpdateCarRequest {
+    @Min(value = 2000)
     private int modelYear;
 
+    @Size(min=7, max=8)
     private String plate;
 
     private int kilometer;
-
 
     private CarState state;
 

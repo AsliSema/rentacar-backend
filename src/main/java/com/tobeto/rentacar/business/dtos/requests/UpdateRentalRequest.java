@@ -16,8 +16,13 @@ import java.time.LocalDate;
 public class UpdateRentalRequest {
 
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "The start date cannot be further back than today.")
     private LocalDate startDate;
 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "The end date cannot be further back than today.")
     private LocalDate endDate;
 
 

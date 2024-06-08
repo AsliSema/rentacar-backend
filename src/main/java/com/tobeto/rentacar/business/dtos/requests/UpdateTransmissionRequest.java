@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateTransmissionRequest {
 
+    @Size(min=2, max=30)
     private String name;
 }

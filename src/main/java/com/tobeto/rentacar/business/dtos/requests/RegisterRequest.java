@@ -33,8 +33,6 @@ public class RegisterRequest {
 
     private String confirmPassword;
 
-    private String companyName;
-
     @NotBlank
     @Size(min = 10, max = 10)
     private String phoneNumber;
@@ -46,5 +44,4 @@ public class RegisterRequest {
     @NotEmpty
     private String city;
 
-//    private Role role;
 }

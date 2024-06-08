@@ -29,9 +29,7 @@ import java.util.stream.Collectors;
 public class UserManager implements UserService {
 
     private UserRepository userRepository;
-    private LicenseRepository licenseRepository;
     private ModelMapperService modelMapperService;
-
     private BCryptPasswordEncoder passwordEncoder;
 
 
@@ -52,7 +50,6 @@ public class UserManager implements UserService {
         user.setId(id);
         user.setUpdatedDate(LocalDateTime.now());
         user.setCity(updatedUser.getCity() != null ? updatedUser.getCity() : user.getCity());
-        user.setCompanyName(updatedUser.getCompanyName() != null ? updatedUser.getCompanyName() : user.getCompanyName());
         user.setEmail(updatedUser.getEmail() != null ? updatedUser.getEmail() : user.getEmail());
         user.setFirstName(updatedUser.getFirstName() != null ? updatedUser.getFirstName() : user.getFirstName());
         user.setLastName(updatedUser.getLastName() != null ? updatedUser.getLastName() : user.getLastName());

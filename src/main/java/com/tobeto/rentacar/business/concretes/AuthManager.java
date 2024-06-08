@@ -52,8 +52,7 @@ public class AuthManager implements AuthService {
                 .phoneNumber(request.getPhoneNumber())
                 .email(request.getEmail())
                 .identityNumber(request.getIdentityNumber())
-                .city(request.getCity().toLowerCase())
-                .companyName(request.getCompanyName())
+                .city(request.getCity())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();

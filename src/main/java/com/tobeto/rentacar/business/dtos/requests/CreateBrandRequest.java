@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class CreateBrandRequest {
 
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=2, max=15)
     private String name;
 }
