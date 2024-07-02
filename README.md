@@ -14,7 +14,7 @@ The purpose of my project is to connects customers with rental cars, facilitatin
 <table>
   <tr>
     <td align="center">
-      <img width="80px" src="[https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg](https://github.com/devicons/devicon/blob/v2.16.0/icons/java/java-original.svg)" alt="Java" />
+      <img width="80px" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/java/java-original.svg" alt="Java" />
       <br>Node.js
     </td>
     <td align="center">
