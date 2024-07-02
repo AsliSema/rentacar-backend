@@ -1,4 +1,4 @@
-# Rent A Car Backend Project
+# Rent A Car Project
 Welcome to Rent A Car! This project aims to connect customers with rental cars, facilitating an efficient and user-friendly experience.
 <br />
 
@@ -95,6 +95,8 @@ To contribute to this project, you can follow these steps:
 2. Install dependencies.
 3. Set up environment variables for database connection and authentication.
 4. Run the application.
+5. Clone the frontend repository: 🔗 [Click here](https://github.com/AsliSema/rentacar-frontend)  
+
 
 <br />
 
