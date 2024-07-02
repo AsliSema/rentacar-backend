@@ -33,12 +33,12 @@ The purpose of my project is to connects customers with rental cars, facilitatin
       <img width="80px" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/docker/docker-original.svg" alt="Docker" />
       <br>Docker
     </td>
+  </tr>
+  <tr>
     <td align="center">
       <img width="80px" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/angular/angular-original.svg" alt="Angular" />
       <br>Angular
     </td>
-  </tr>
-  <tr>
     <td align="center">
       <img width="80px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />
       <br>TypeScript
