@@ -55,6 +55,10 @@ The purpose of my project is to connects customers with rental cars, facilitatin
       <img width="80px" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/css3/css3-original.svg" alt="CSS" />
       <br>CSS
     </td>
+    <td align="center">
+      <img width="80px" src="https://github.com/devicons/devicon/blob/v2.16.0/icons/swagger/swagger-original.svg" alt="Swagger" />
+      <br>Swagger
+    </td>
   </tr>
 </table>
 
