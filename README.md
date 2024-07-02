@@ -59,3 +59,41 @@ The purpose of my project is to connects customers with rental cars, facilitatin
 </table>
 
 <br />
+
+
+## Project Features
+
+- User Authentication: A secure signup and login process implemented using Spring Security.
+- User Profile: Users can conveniently manage their personal information.
+- Car Listings: Allows cars to be showcased with images, model years, colors, and additional information.
+- Rental Management: Users can effortlessly browse available cars, make rental reservations, and review their rental history.
+- Admin Dashboard: Admin has extra access for managing users, brands, models, and cars.
+
+<br />
+
+
+## Entity-Relationship Diagram (ERD)
+
+I began the project design phase by creating an Entity-Relationship Diagram (ERD) to visualize the database structure.
+
+Here's a simplified representation of ERD design:
+<br />
+🔗 [Database design](https://app.diagrams.net/#G19LXQtdgKsAUKVzkn-tGd3mKh4j6150ZU#%7B%22pageId%22%3A%228maZeWQhW6xMATc8ixxi%22%7D)  
+
+
+## Functionality
+
+To contribute to this project, you can follow these steps:
+
+1. Clone the repository
+2. Install dependencies.
+3. Set up environment variables for database connection and authentication.
+4. Run the application.
+
+<br />
+
+## Contributing
+
+I welcome contributions from the community! Feel free to submit issues and pull requests.
+
+<br />
