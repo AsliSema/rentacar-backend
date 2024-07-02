@@ -9,7 +9,7 @@ The purpose of my project is to connects customers with rental cars, facilitatin
 
 ## Tech Stack
 
-### ➡️ Used Technologies:
+### Used Technologies:
 
 <table>
   <tr>
