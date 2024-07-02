@@ -2,12 +2,12 @@
 Welcome to Rent A Car! This project aims to connect customers with rental cars, facilitating an efficient and user-friendly experience.
 
 <br />
-## Project Overview
+## ➡️ Project Overview
 
 The purpose of my project is to connects customers with rental cars, facilitating an efficient and user-friendly experience.
 <br />
 
-## Tech Stack
+## ➡️ Tech Stack
 
 ### Used Technologies:
 
@@ -65,7 +65,7 @@ The purpose of my project is to connects customers with rental cars, facilitatin
 <br />
 
 
-## Project Features
+## ➡️ Project Features
 
 - User Authentication: A secure signup and login process implemented using Spring Security.
 - User Profile: Users can conveniently manage their personal information.
@@ -76,7 +76,7 @@ The purpose of my project is to connects customers with rental cars, facilitatin
 <br />
 
 
-## Entity-Relationship Diagram (ERD)
+## ➡️ Entity-Relationship Diagram (ERD)
 
 I began the project design phase by creating an Entity-Relationship Diagram (ERD) to visualize the database structure.
 
@@ -85,7 +85,7 @@ Here's a simplified representation of ERD design:
 🔗 [Database design](https://app.diagrams.net/#G19LXQtdgKsAUKVzkn-tGd3mKh4j6150ZU#%7B%22pageId%22%3A%228maZeWQhW6xMATc8ixxi%22%7D)  
 
 
-## Functionality
+## ➡️ Functionality
 
 To contribute to this project, you can follow these steps:
 
