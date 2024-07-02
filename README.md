@@ -1,6 +1,5 @@
 # Rent A Car Backend Project
 Welcome to Rent A Car! This project aims to connect customers with rental cars, facilitating an efficient and user-friendly experience.
-
 <br />
 
 
@@ -8,6 +7,7 @@ Welcome to Rent A Car! This project aims to connect customers with rental cars, 
 
 The purpose of my project is to connects customers with rental cars, facilitating an efficient and user-friendly experience.
 <br />
+
 
 ## ➡️ Tech Stack
 
